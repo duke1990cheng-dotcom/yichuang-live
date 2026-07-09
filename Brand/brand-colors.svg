@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560"><rect width="1000" height="560" fill="#F7F7F5"/>
+<text x="60" y="78" fill="#30383C" font-family="Arial" font-size="34" letter-spacing="4">BRAND COLOR</text>
+<rect x="60" y="130" width="230" height="95" rx="2" fill="#30383C" stroke="#CBD3D7"/>
+<text x="60" y="260" fill="#30383C" font-family="Arial" font-size="20">Ink</text>
+<text x="60" y="288" fill="#687176" font-family="Arial" font-size="17">#30383C</text>
+<rect x="360" y="130" width="230" height="95" rx="2" fill="#C9975B" stroke="#CBD3D7"/>
+<text x="360" y="260" fill="#30383C" font-family="Arial" font-size="20">Warm Gold</text>
+<text x="360" y="288" fill="#687176" font-family="Arial" font-size="17">#C9975B</text>
+<rect x="660" y="130" width="230" height="95" rx="2" fill="#7D94AA" stroke="#CBD3D7"/>
+<text x="660" y="260" fill="#30383C" font-family="Arial" font-size="20">Privacy Blue</text>
+<text x="660" y="288" fill="#687176" font-family="Arial" font-size="17">#7D94AA</text>
+<rect x="60" y="320" width="230" height="95" rx="2" fill="#84917E" stroke="#CBD3D7"/>
+<text x="60" y="450" fill="#30383C" font-family="Arial" font-size="20">Energy Sage</text>
+<text x="60" y="478" fill="#687176" font-family="Arial" font-size="17">#84917E</text>
+<rect x="360" y="320" width="230" height="95" rx="2" fill="#E8ECEE" stroke="#CBD3D7"/>
+<text x="360" y="450" fill="#30383C" font-family="Arial" font-size="20">Mist</text>
+<text x="360" y="478" fill="#687176" font-family="Arial" font-size="17">#E8ECEE</text>
+<rect x="660" y="320" width="230" height="95" rx="2" fill="#F7F7F5" stroke="#CBD3D7"/>
+<text x="660" y="450" fill="#30383C" font-family="Arial" font-size="20">Paper</text>
+<text x="660" y="478" fill="#687176" font-family="Arial" font-size="17">#F7F7F5</text>
+</svg>
