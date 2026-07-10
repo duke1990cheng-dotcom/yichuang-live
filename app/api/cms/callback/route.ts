@@ -25,33 +25,57 @@ function callbackPage() {
             return;
           }
 
-          window.opener.postMessage(message, origin || "*");
+          try {
+            window.opener.postMessage(message, origin || window.location.origin);
+          } catch (error) {
+            window.opener.postMessage(message, "*");
+          }
         }
 
         function sendResult(status, payload) {
           var authMessage = "authorization:" + provider + ":" + status + ":" + JSON.stringify(payload);
           var readyMessage = "authorizing:" + provider;
           var attempts = 0;
+          var completed = false;
+
+          function sendReady() {
+            sendToCms(readyMessage, window.location.origin);
+            sendToCms(readyMessage, "*");
+          }
+
+          function finishLogin() {
+            if (completed) return;
+            completed = true;
+            setStatus("登录成功，正在返回后台...");
+            window.setTimeout(function() {
+              window.close();
+            }, 1200);
+          }
 
           function receiveMessage(event) {
             if (event.data === readyMessage) {
               sendToCms(authMessage, event.origin);
+              sendToCms(authMessage, window.location.origin);
+              sendToCms(authMessage, "*");
               if (status === "success") {
-                setStatus("登录成功，正在返回后台...");
-                window.setTimeout(function() {
-                  window.close();
-                }, 1500);
+                finishLogin();
               }
             }
           }
 
           window.addEventListener("message", receiveMessage, false);
-          sendToCms(readyMessage, "*");
+          sendReady();
           var timer = window.setInterval(function() {
             attempts += 1;
-            sendToCms(readyMessage, "*");
-            if (attempts > 10) {
+            sendReady();
+            if (status === "success" && !completed) {
+              setStatus("GitHub 授权成功，正在连接后台...（第 " + attempts + " 次尝试）");
+            }
+            if (attempts > 60 || completed) {
               window.clearInterval(timer);
+              if (!completed && status === "success") {
+                setStatus("GitHub 授权成功，但后台页面暂时没有响应。请关闭这个小窗口，刷新 /admin 页面后再点一次 GitHub 登录。");
+              }
             }
           }, 500);
 
