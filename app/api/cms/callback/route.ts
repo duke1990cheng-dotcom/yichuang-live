@@ -19,35 +19,43 @@ function callbackPage() {
           if (statusEl) statusEl.textContent = text;
         }
 
-        function sendToCms(message) {
+        function sendToCms(message, origin) {
           if (!window.opener) {
             setStatus("没有找到后台窗口。请关闭此窗口，回到后台页面重新点击 GitHub 登录。");
             return;
           }
 
-          window.opener.postMessage("authorizing:" + provider, "*");
-          window.opener.postMessage(message, "*");
+          window.opener.postMessage(message, origin || "*");
         }
 
         function sendResult(status, payload) {
-          var message = "authorization:" + provider + ":" + status + ":" + JSON.stringify(payload);
+          var authMessage = "authorization:" + provider + ":" + status + ":" + JSON.stringify(payload);
+          var readyMessage = "authorizing:" + provider;
           var attempts = 0;
 
-          sendToCms(message);
+          function receiveMessage(event) {
+            if (event.data === readyMessage) {
+              sendToCms(authMessage, event.origin);
+              if (status === "success") {
+                setStatus("登录成功，正在返回后台...");
+                window.setTimeout(function() {
+                  window.close();
+                }, 1500);
+              }
+            }
+          }
+
+          window.addEventListener("message", receiveMessage, false);
+          sendToCms(readyMessage, "*");
           var timer = window.setInterval(function() {
             attempts += 1;
-            sendToCms(message);
+            sendToCms(readyMessage, "*");
             if (attempts > 10) {
               window.clearInterval(timer);
             }
           }, 500);
 
-          if (status === "success") {
-            setStatus("登录成功，正在返回后台...");
-            window.setTimeout(function() {
-              window.close();
-            }, 2500);
-          }
+          setStatus(status === "success" ? "GitHub 授权成功，正在连接后台..." : "登录失败：" + (payload.error || "未知错误"));
         }
 
         fetch("/api/cms/token" + window.location.search, { credentials: "same-origin" })
