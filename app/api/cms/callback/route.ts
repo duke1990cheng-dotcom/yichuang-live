@@ -8,14 +8,32 @@ function authResponse(provider: "github", status: "success" | "error", payload: 
     <title>CMS Login</title>
   </head>
   <body>
+    <main style="font-family: system-ui, sans-serif; padding: 32px; color: #222;">
+      <h1 style="font-size: 20px;">CMS 登录处理中</h1>
+      <p>如果窗口没有自动关闭，请回到后台页面刷新后再试一次。</p>
+    </main>
     <script>
       (function() {
         var message = "authorization:${provider}:${status}:" + ${JSON.stringify(JSON.stringify(payload))};
+        function send(origin) {
+          if (!window.opener) return;
+          window.opener.postMessage("authorizing:${provider}", origin || "*");
+          window.opener.postMessage(message, origin || "*");
+        }
         function receiveMessage(event) {
-          window.opener.postMessage(message, event.origin);
+          send(event.origin);
         }
         window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:${provider}", "*");
+        send("*");
+        var attempts = 0;
+        var timer = window.setInterval(function() {
+          attempts += 1;
+          send("*");
+          if (attempts > 10) window.clearInterval(timer);
+        }, 500);
+        window.setTimeout(function() {
+          window.close();
+        }, 2500);
       })();
     </script>
   </body>
