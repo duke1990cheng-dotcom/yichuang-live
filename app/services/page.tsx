@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
@@ -12,36 +13,42 @@ export const metadata: Metadata = createPageMetadata({
 const services = [
   {
     title: "住宅隔热膜",
+    image: "/images/heat-test.webp",
     problem: "改善西晒、玻璃附近热感和夏季空调压力。",
     scene: "适合客厅、卧室、阳台等天津住宅窗膜场景。",
     measure: "支持上门测量"
   },
   {
     title: "住宅隐私膜",
+    image: "/images/sample-wall.webp",
     problem: "减少白天外部视线直视，提升家庭私密性。",
     scene: "适合低楼层、临街、楼间距较近的天津隐私膜需求。",
     measure: "支持上门测量"
   },
   {
     title: "建筑玻璃膜",
+    image: "/images/film-display.webp",
     problem: "改善建筑玻璃带来的热、晒、眩光和紫外线问题。",
     scene: "适合住宅阳台、飘窗、书房和天津建筑膜应用。",
     measure: "支持上门测量"
   },
   {
     title: "落地窗隔热",
+    image: "/images/bedroom-window.webp",
     problem: "降低大面积玻璃带来的热量累积和眩光。",
     scene: "适合天津落地窗隔热、客厅阳台和大玻璃窗。",
     measure: "支持上门测量"
   },
   {
     title: "阳光房隔热",
+    image: "/images/sunroom-window.webp",
     problem: "改善阳光房夏季闷热、强光和家具暴晒。",
     scene: "适合天津阳光房隔热、顶面玻璃和侧面玻璃。",
     measure: "支持上门测量"
   },
   {
     title: "家具膜",
+    image: "/images/film-rolls.webp",
     problem: "减少家具、地板、窗帘被阳光长期晒褪色。",
     scene: "适合靠窗柜体、木地板、皮沙发和定制家具。",
     measure: "支持上门测量"
@@ -59,6 +66,15 @@ export default function ServicesPage() {
       <section className="container-page grid gap-5 py-14 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <Card key={service.title}>
+            <div className="mb-5 rounded-md bg-paper p-2">
+              <Image
+                src={service.image}
+                alt={service.title}
+                width={430}
+                height={245}
+                className="aspect-[4/2.4] w-full rounded object-cover"
+              />
+            </div>
             <h2 className="text-xl font-medium">{service.title}</h2>
             <div className="mt-4 space-y-3 text-sm leading-7 text-ink/68">
               <p><span className="font-medium text-ink">解决问题：</span>{service.problem}</p>

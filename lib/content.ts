@@ -26,6 +26,7 @@ export type ContentItem = {
 };
 
 const contentRoot = path.join(process.cwd(), "content");
+const defaultArticleCover = "/images/home-hero-living.webp";
 
 export function getContentSlugs(collection: ContentCollection) {
   const directory = path.join(contentRoot, collection);
@@ -66,7 +67,7 @@ export function getContentBySlug(collection: ContentCollection, slug: string): C
     tags,
     publishDate,
     author: data.author ?? "一窗生活科技",
-    cover: data.cover ?? "",
+    cover: normalizeCover(data.cover, collection),
     content: enhancedContent,
     readingTime: estimateReadingTime(content),
     toc: generateToc(content)
@@ -148,6 +149,14 @@ function normalizeArray(value: unknown): string[] {
   }
 
   return [];
+}
+
+function normalizeCover(value: unknown, collection: ContentCollection) {
+  if (typeof value === "string" && value.trim()) {
+    return value;
+  }
+
+  return collection === "articles" ? defaultArticleCover : "";
 }
 
 function defaultCategory(collection: ContentCollection) {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -110,6 +111,16 @@ export default async function ArticlePage({ params }: Props) {
             <p className="text-sm text-blue">{article.category} · {article.publishDate} · {article.readingTime}</p>
             <h1 className="mt-4 text-3xl font-medium leading-tight md:text-5xl">{article.title}</h1>
             <p className="mt-5 text-lg leading-8 text-ink/68">{article.description}</p>
+            <div className="mt-8 max-w-3xl rounded-lg border border-line/70 bg-paper p-3">
+              <Image
+                src={article.cover}
+                alt={article.title}
+                width={610}
+                height={305}
+                className="aspect-[2/1] w-full rounded-md object-cover"
+                priority
+              />
+            </div>
 
             <div className="prose prose-slate mt-10 max-w-none prose-headings:text-ink prose-p:text-ink/72 prose-a:text-blue">
               <MDXRemote source={article.content} components={mdxComponents} />

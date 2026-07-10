@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
@@ -41,6 +42,15 @@ export default function ContactPage() {
           </Link>
         </Card>
         <Card>
+          <div className="mb-5 rounded-md bg-paper p-2">
+            <Image
+              src="/images/experience-center-wide.webp"
+              alt="一窗窗膜体验中心"
+              width={970}
+              height={454}
+              className="aspect-[16/9] w-full rounded object-cover"
+            />
+          </div>
           <h2 className="text-xl font-medium">一窗窗膜体验中心</h2>
           <p className="mt-4 leading-8 text-ink/68">
             地址：{site.address}

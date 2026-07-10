@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { getArticleCategories, getArticleTags, getArticlesByCategory, getArticlesByTag } from "@/lib/articles";
@@ -74,6 +75,15 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
               href={`/articles/${article.slug}`}
               className="focus-ring rounded-lg border border-line/70 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft"
             >
+              <div className="mb-5 rounded-md bg-paper p-2">
+                <Image
+                  src={article.cover}
+                  alt={article.title}
+                  width={610}
+                  height={305}
+                  className="aspect-[2/1] w-full rounded object-cover"
+                />
+              </div>
               <p className="text-sm text-blue">{article.category} · {article.readingTime}</p>
               <h2 className="mt-3 text-xl font-medium leading-8">{article.title}</h2>
               <p className="mt-3 line-clamp-3 leading-7 text-ink/66">{article.description}</p>

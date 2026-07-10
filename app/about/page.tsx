@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
@@ -25,6 +26,15 @@ export default function AboutPage() {
             一窗专注天津住宅窗膜、天津玻璃膜、天津隔热膜、天津隐私膜和天津建筑膜服务。
             我们希望用清晰的产品说明、上门测量和规范安装，帮助家庭更稳妥地改善西晒、隐私、采光和家具防晒问题。
           </p>
+        </div>
+        <div className="mt-8 max-w-4xl rounded-lg border border-line/70 bg-paper p-3">
+          <Image
+            src="/images/lounge-window.webp"
+            alt="一窗住宅窗膜休息洽谈空间"
+            width={336}
+            height={305}
+            className="aspect-[16/7] w-full rounded-md object-cover"
+          />
         </div>
         <div className="mt-9 grid gap-6 md:grid-cols-3">
         {[

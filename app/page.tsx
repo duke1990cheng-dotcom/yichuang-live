@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllArticles } from "@/lib/articles";
 import { createPageMetadata } from "@/lib/seo";
@@ -95,13 +96,15 @@ export default function HomePage() {
           </div>
           <div className="rounded-lg border border-line/80 bg-paper px-7 py-8 shadow-soft">
             <div className="rounded-lg border border-line/70 bg-white/72 p-6">
-              <div className="mx-auto flex h-40 max-w-sm items-center justify-center rounded-md border border-line/80 bg-white">
-                <div className="grid h-28 w-48 grid-cols-2 border border-blue/35">
-                  <span className="border-r border-blue/30" />
-                  <span />
-                  <span className="border-r border-t border-blue/30" />
-                  <span className="border-t border-blue/30" />
-                </div>
+              <div className="mx-auto max-w-sm overflow-hidden rounded-md border border-line/80 bg-white">
+                <Image
+                  src="/images/experience-center-sofa.webp"
+                  alt="一窗窗膜体验中心"
+                  width={1086}
+                  height={510}
+                  priority
+                  className="aspect-[1086/510] w-full object-cover"
+                />
               </div>
               <div className="mt-6 text-center">
                 <p className="text-2xl font-medium tracking-wide text-ink">一窗窗膜体验中心</p>
@@ -167,9 +170,20 @@ export default function HomePage() {
             <p className="text-sm font-medium tracking-[0.2em] text-blue">EXPERIENCE CENTER</p>
             <h2 className="mt-3 text-3xl font-medium">一窗住宅窗膜体验中心</h2>
           </div>
-          <p className="text-lg leading-9 text-ink/70">
-            位于天津市红桥区红旗路一号红星美凯龙一楼，提供真实窗膜体验、产品对比、方案咨询与施工预约。家里有西晒、落地窗太热、阳光房闷热或白天隐私不够，都可以先到店看样膜，也可以预约上门测量。
-          </p>
+          <div>
+            <div className="mb-6 max-w-xl rounded-lg border border-line/70 bg-white p-2">
+              <Image
+                src="/images/experience-center-wide.webp"
+                alt="一窗窗膜体验中心门店"
+                width={970}
+                height={454}
+                className="aspect-[4/2.35] w-full rounded-md object-cover"
+              />
+            </div>
+            <p className="text-lg leading-9 text-ink/70">
+              位于天津市红桥区红旗路一号红星美凯龙一楼，提供真实窗膜体验、产品对比、方案咨询与施工预约。家里有西晒、落地窗太热、阳光房闷热或白天隐私不够，都可以先到店看样膜，也可以预约上门测量。
+            </p>
+          </div>
         </div>
       </section>
 
@@ -190,6 +204,15 @@ export default function HomePage() {
               href={`/articles/${article.slug}`}
               className="focus-ring mt-8 block rounded-lg border border-line/70 bg-white p-6 transition hover:border-blue"
             >
+              <div className="mb-5 rounded-md bg-paper p-2">
+                <Image
+                  src={article.cover}
+                  alt={article.title}
+                  width={610}
+                  height={305}
+                  className="aspect-[2/1] w-full rounded object-cover"
+                />
+              </div>
               <p className="text-sm text-blue">{article.category}</p>
               <h3 className="mt-3 text-lg font-medium leading-7">{article.title}</h3>
               <p className="mt-3 line-clamp-3 text-sm leading-6 text-ink/62">{article.description}</p>
