@@ -2,6 +2,7 @@ backend:
   name: github
   repo: duke1990cheng-dotcom/yichuang-live
   branch: main
+  site_id: yichuang.live
   base_url: https://yichuang.live
   auth_endpoint: api/cms/auth
   commit_messages:
