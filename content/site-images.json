@@ -1,0 +1,19 @@
+{
+  "homeHeroImage": "/images/experience-center-sofa.webp",
+  "homeExperienceImage": "/images/experience-center-wide.webp",
+  "aboutImage": "/images/lounge-window.webp",
+  "contactImage": "/images/experience-center-wide.webp",
+  "services": {
+    "heatFilm": "/images/heat-test.webp",
+    "privacyFilm": "/images/sample-wall.webp",
+    "architecturalFilm": "/images/film-display.webp",
+    "floorToCeilingWindow": "/images/bedroom-window.webp",
+    "sunroom": "/images/sunroom-window.webp",
+    "furnitureFilm": "/images/film-rolls.webp"
+  },
+  "cases": {
+    "westFacingLivingRoom": "/images/home-hero-living.webp",
+    "floorToCeilingPrivacy": "/images/bedroom-window.webp",
+    "sunroomHeat": "/images/sunroom-window.webp"
+  }
+}

@@ -5,6 +5,7 @@ import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { images } from "@/lib/site-images";
 
 export const metadata: Metadata = createPageMetadata({
   title: "联系我们",
@@ -44,7 +45,7 @@ export default function ContactPage() {
         <Card>
           <div className="mb-5 rounded-md bg-paper p-2">
             <Image
-              src="/images/experience-center-wide.webp"
+              src={images.contactImage}
               alt="一窗窗膜体验中心"
               width={970}
               height={454}

@@ -4,6 +4,7 @@ import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { images } from "@/lib/site-images";
 
 export const metadata: Metadata = createPageMetadata({
   title: "关于一窗",
@@ -29,7 +30,7 @@ export default function AboutPage() {
         </div>
         <div className="mt-8 max-w-4xl rounded-lg border border-line/70 bg-paper p-3">
           <Image
-            src="/images/lounge-window.webp"
+            src={images.aboutImage}
             alt="一窗住宅窗膜休息洽谈空间"
             width={336}
             height={305}

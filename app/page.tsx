@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getAllArticles } from "@/lib/articles";
 import { createPageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { images } from "@/lib/site-images";
 
 export const metadata: Metadata = createPageMetadata({
   title: "一窗生活科技｜天津住宅窗膜隔热膜隐私膜服务",
@@ -98,7 +99,7 @@ export default function HomePage() {
             <div className="rounded-lg border border-line/70 bg-white/72 p-6">
               <div className="mx-auto max-w-sm overflow-hidden rounded-md border border-line/80 bg-white">
                 <Image
-                  src="/images/experience-center-sofa.webp"
+                  src={images.homeHeroImage}
                   alt="一窗窗膜体验中心"
                   width={1086}
                   height={510}
@@ -173,7 +174,7 @@ export default function HomePage() {
           <div>
             <div className="mb-6 max-w-xl rounded-lg border border-line/70 bg-white p-2">
               <Image
-                src="/images/experience-center-wide.webp"
+                src={images.homeExperienceImage}
                 alt="一窗窗膜体验中心门店"
                 width={970}
                 height={454}

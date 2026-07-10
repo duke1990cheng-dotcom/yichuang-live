@@ -16,7 +16,7 @@ export const navItems = [
   { href: "/", label: "首页" },
   { href: "/services", label: "服务项目" },
   { href: "/cases", label: "案例中心" },
-  { href: "/articles", label: "知识文章" },
+  { href: "/articles", label: "住宅窗膜百科" },
   { href: "/faq", label: "常见问题" },
   { href: "/contact", label: "联系我们" }
 ];

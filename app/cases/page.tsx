@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
+import { images } from "@/lib/site-images";
 
 export const metadata: Metadata = createPageMetadata({
   title: "案例中心",
@@ -11,9 +12,9 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 const cases = [
-  ["西晒客厅隔热方案", "针对客厅下午西晒、玻璃附近热感明显的问题，优先考虑低反光住宅隔热膜，兼顾采光和舒适度。", "/images/home-hero-living.webp"],
-  ["落地窗隐私方案", "针对大面积落地窗、楼间距较近或临街视线问题，配置白天隐私膜并建议夜间配合窗帘。", "/images/bedroom-window.webp"],
-  ["阳光房隔热方案", "针对阳光房夏季闷热、强光和家具暴晒问题，结合顶面与侧面玻璃情况选择隔热方案。", "/images/sunroom-window.webp"]
+  ["西晒客厅隔热方案", "针对客厅下午西晒、玻璃附近热感明显的问题，优先考虑低反光住宅隔热膜，兼顾采光和舒适度。", images.cases.westFacingLivingRoom],
+  ["落地窗隐私方案", "针对大面积落地窗、楼间距较近或临街视线问题，配置白天隐私膜并建议夜间配合窗帘。", images.cases.floorToCeilingPrivacy],
+  ["阳光房隔热方案", "针对阳光房夏季闷热、强光和家具暴晒问题，结合顶面与侧面玻璃情况选择隔热方案。", images.cases.sunroomHeat]
 ];
 
 export default function CasesPage() {

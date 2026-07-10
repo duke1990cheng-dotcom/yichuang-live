@@ -1,0 +1,80 @@
+backend:
+  name: github
+  repo: duke1990cheng-dotcom/yichuang-live
+  branch: main
+  base_url: https://yichuang.live
+  auth_endpoint: api/cms/auth
+  commit_messages:
+    create: "cms: create {{collection}} {{slug}}"
+    update: "cms: update {{collection}} {{slug}}"
+    delete: "cms: delete {{collection}} {{slug}}"
+    uploadMedia: "cms: upload {{path}}"
+    deleteMedia: "cms: delete {{path}}"
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+locale: "zh_Hans"
+
+collections:
+  - name: "articles"
+    label: "住宅窗膜百科"
+    label_singular: "文章"
+    folder: "content/articles"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "分类"
+        name: "category"
+        widget: "select"
+        options:
+          - "窗膜基础知识"
+          - "隔热专区"
+          - "隐私专区"
+          - "真实案例"
+          - "实验室"
+          - "常见问题"
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        allow_add: true
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "发布时间", name: "publishDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "作者", name: "author", widget: "string", default: "一窗生活科技" }
+      - { label: "封面图片", name: "cover", widget: "image", required: false }
+      - { label: "正文 Markdown", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "网站设置"
+    files:
+      - name: "site_images"
+        label: "网站图片设置"
+        file: "content/site-images.json"
+        format: "json"
+        fields:
+          - { label: "首页 Hero 图片", name: "homeHeroImage", widget: "image" }
+          - { label: "首页体验中心图片", name: "homeExperienceImage", widget: "image" }
+          - { label: "关于一窗页面图片", name: "aboutImage", widget: "image" }
+          - { label: "联系我们页面图片", name: "contactImage", widget: "image" }
+          - label: "服务项目页面图片"
+            name: "services"
+            widget: "object"
+            fields:
+              - { label: "住宅隔热膜", name: "heatFilm", widget: "image" }
+              - { label: "住宅隐私膜", name: "privacyFilm", widget: "image" }
+              - { label: "建筑玻璃膜", name: "architecturalFilm", widget: "image" }
+              - { label: "落地窗隔热", name: "floorToCeilingWindow", widget: "image" }
+              - { label: "阳光房隔热", name: "sunroom", widget: "image" }
+              - { label: "家具膜", name: "furnitureFilm", widget: "image" }
+          - label: "案例中心页面图片"
+            name: "cases"
+            widget: "object"
+            fields:
+              - { label: "西晒客厅隔热方案", name: "westFacingLivingRoom", widget: "image" }
+              - { label: "落地窗隐私方案", name: "floorToCeilingPrivacy", widget: "image" }
+              - { label: "阳光房隔热方案", name: "sunroomHeat", widget: "image" }

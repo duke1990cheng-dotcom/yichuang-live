@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card } from "@/components/card";
 import { PageHero } from "@/components/page-hero";
 import { createPageMetadata } from "@/lib/seo";
+import { images } from "@/lib/site-images";
 
 export const metadata: Metadata = createPageMetadata({
   title: "服务项目",
@@ -13,42 +14,42 @@ export const metadata: Metadata = createPageMetadata({
 const services = [
   {
     title: "住宅隔热膜",
-    image: "/images/heat-test.webp",
+    image: images.services.heatFilm,
     problem: "改善西晒、玻璃附近热感和夏季空调压力。",
     scene: "适合客厅、卧室、阳台等天津住宅窗膜场景。",
     measure: "支持上门测量"
   },
   {
     title: "住宅隐私膜",
-    image: "/images/sample-wall.webp",
+    image: images.services.privacyFilm,
     problem: "减少白天外部视线直视，提升家庭私密性。",
     scene: "适合低楼层、临街、楼间距较近的天津隐私膜需求。",
     measure: "支持上门测量"
   },
   {
     title: "建筑玻璃膜",
-    image: "/images/film-display.webp",
+    image: images.services.architecturalFilm,
     problem: "改善建筑玻璃带来的热、晒、眩光和紫外线问题。",
     scene: "适合住宅阳台、飘窗、书房和天津建筑膜应用。",
     measure: "支持上门测量"
   },
   {
     title: "落地窗隔热",
-    image: "/images/bedroom-window.webp",
+    image: images.services.floorToCeilingWindow,
     problem: "降低大面积玻璃带来的热量累积和眩光。",
     scene: "适合天津落地窗隔热、客厅阳台和大玻璃窗。",
     measure: "支持上门测量"
   },
   {
     title: "阳光房隔热",
-    image: "/images/sunroom-window.webp",
+    image: images.services.sunroom,
     problem: "改善阳光房夏季闷热、强光和家具暴晒。",
     scene: "适合天津阳光房隔热、顶面玻璃和侧面玻璃。",
     measure: "支持上门测量"
   },
   {
     title: "家具膜",
-    image: "/images/film-rolls.webp",
+    image: images.services.furnitureFilm,
     problem: "减少家具、地板、窗帘被阳光长期晒褪色。",
     scene: "适合靠窗柜体、木地板、皮沙发和定制家具。",
     measure: "支持上门测量"

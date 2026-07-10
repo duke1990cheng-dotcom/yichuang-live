@@ -101,7 +101,7 @@ export default async function ArticlePage({ params }: Props) {
         <nav className="text-sm text-ink/52" aria-label="面包屑导航">
           <Link href="/" className="hover:text-ink">首页</Link>
           <span className="mx-2">/</span>
-          <Link href="/articles" className="hover:text-ink">知识中心</Link>
+          <Link href="/articles" className="hover:text-ink">住宅窗膜百科</Link>
           <span className="mx-2">/</span>
           <span className="text-ink/72">{article.category}</span>
         </nav>
