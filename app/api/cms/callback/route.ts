@@ -38,16 +38,10 @@ function callbackPage() {
           sendToCms(authMessage, "*");
         }
 
-        function startLogin() {
-          var readyMessage = "authorizing:" + provider;
+        function deliverToken(token) {
           var attempts = 0;
           var completed = false;
-          var exchangedToken = false;
-
-          function sendReady() {
-            sendToCms(readyMessage, window.location.origin);
-            sendToCms(readyMessage, "*");
-          }
+          var message = { type: "yichuang-cms-token", token: token };
 
           function finishLogin() {
             if (completed) return;
@@ -58,56 +52,72 @@ function callbackPage() {
             }, 1200);
           }
 
-          function exchangeToken() {
-            if (exchangedToken) return;
-            exchangedToken = true;
-            setStatus("GitHub 授权成功，正在登录后台...");
+          function sendToken() {
+            sendToCms(message, window.location.origin);
+            sendToCms(message, "https://yichuang.live");
+            sendToCms(message, "https://www.yichuang.live");
+            sendToCms(message, "*");
 
-            fetch("/api/cms/token" + window.location.search, { credentials: "same-origin" })
-              .then(function(response) {
-                return response.json().then(function(data) {
-                  if (!response.ok) {
-                    throw new Error(data.error || "GitHub 登录失败。");
-                  }
-                  return data;
-                });
-              })
-              .then(function(data) {
-                sendResult("success", { token: data.token });
+            try {
+              if (window.opener && window.opener.localStorage) {
+                window.opener.localStorage.setItem(
+                  "decap-cms-user",
+                  JSON.stringify({
+                    backendName: "github",
+                    token: token
+                  })
+                );
+                window.opener.location.replace("/admin/index.html");
                 finishLogin();
-              })
-              .catch(function(error) {
-                setStatus("登录失败：" + error.message);
-                sendResult("error", { error: error.message });
-              });
+              }
+            } catch (error) {
+              // Cross-origin admin windows are handled through postMessage above.
+            }
           }
 
           function receiveMessage(event) {
-            if (event.data === readyMessage) {
-              exchangeToken();
+            var data = event.data || {};
+            if (data.type === "yichuang-cms-token-stored") {
+              finishLogin();
             }
           }
 
           window.addEventListener("message", receiveMessage, false);
-          sendReady();
+          sendToken();
           var timer = window.setInterval(function() {
             attempts += 1;
-            sendReady();
-            if (!completed && !exchangedToken) {
-              setStatus("GitHub 授权成功，正在连接后台...（第 " + attempts + " 次尝试）");
+            sendToken();
+            if (!completed) {
+              setStatus("GitHub 授权成功，正在进入后台...（第 " + attempts + " 次尝试）");
             }
             if (attempts > 60 || completed) {
               window.clearInterval(timer);
-              if (!completed && !exchangedToken) {
-                setStatus("GitHub 授权成功，但后台页面暂时没有响应。请关闭这个小窗口，刷新 /admin 页面后再点一次 GitHub 登录。");
+              if (!completed) {
+                setStatus("GitHub 授权成功，但后台页面暂时没有响应。请关闭这个小窗口，刷新 /admin 页面后再试一次。");
               }
             }
           }, 500);
 
-          setStatus("GitHub 授权成功，正在连接后台...");
+          sendResult("success", { token: token });
+          setStatus("GitHub 授权成功，正在进入后台...");
         }
 
-        startLogin();
+        fetch("/api/cms/token" + window.location.search, { credentials: "same-origin" })
+          .then(function(response) {
+            return response.json().then(function(data) {
+              if (!response.ok) {
+                throw new Error(data.error || "GitHub 登录失败。");
+              }
+              return data;
+            });
+          })
+          .then(function(data) {
+            deliverToken(data.token);
+          })
+          .catch(function(error) {
+            setStatus("登录失败：" + error.message);
+            sendResult("error", { error: error.message });
+          });
       })();
     </script>
   </body>

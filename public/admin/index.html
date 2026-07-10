@@ -7,6 +7,36 @@
     <title>一窗后台管理</title>
   </head>
   <body>
+    <script>
+      (function() {
+        var allowedOrigins = [
+          window.location.origin,
+          "https://yichuang.live",
+          "https://www.yichuang.live"
+        ];
+
+        window.addEventListener("message", function(event) {
+          var data = event.data || {};
+
+          if (allowedOrigins.indexOf(event.origin) === -1) return;
+          if (data.type !== "yichuang-cms-token" || !data.token) return;
+
+          window.localStorage.setItem(
+            "decap-cms-user",
+            JSON.stringify({
+              backendName: "github",
+              token: data.token
+            })
+          );
+
+          if (event.source) {
+            event.source.postMessage({ type: "yichuang-cms-token-stored" }, event.origin);
+          }
+
+          window.location.replace("/admin/index.html");
+        });
+      })();
+    </script>
     <script src="https://unpkg.com/decap-cms@3.6.2/dist/decap-cms.js"></script>
   </body>
 </html>
