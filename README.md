@@ -1,6 +1,6 @@
 # 一窗生活科技官网 V1
 
-基于 Next.js + Tailwind CSS 的内容型官网，适合展示品牌、发布住宅窗膜知识文章，并支持静态生成、SEO、sitemap 和 robots。
+基于 Next.js + Tailwind CSS 的内容型官网，适合展示品牌、发布住宅窗膜百科内容，并支持静态生成、SEO、sitemap 和 robots。
 
 ## 本地运行
 
@@ -40,12 +40,13 @@ pnpm start
 ---
 title: "天津住宅窗膜怎么选？"
 description: "介绍天津家庭选择住宅玻璃膜、隔热膜、隐私膜时需要关注的重点。"
-date: "2026-07-09"
-category: "住宅窗膜知识"
-keywords:
+category: "窗膜基础知识"
+tags:
   - 天津住宅窗膜
   - 玻璃膜
-readingTime: "约4分钟"
+publishDate: "2026-07-09"
+author: "一窗生活科技"
+cover: "/images/lounge-window.webp"
 ---
 
 正文内容从这里开始。
@@ -59,7 +60,7 @@ readingTime: "约4分钟"
 - `/about` 关于一窗
 - `/services` 服务项目
 - `/cases` 案例中心
-- `/articles` 知识文章
+- `/articles` 住宅窗膜百科
 - `/articles/[slug]` 文章详情
 - `/faq` 常见问题
 - `/contact` 联系我们
@@ -79,4 +80,21 @@ readingTime: "约4分钟"
 3. Framework Preset 选择 `Next.js`。
 4. Build Command 使用 `npm run build`。
 5. Output Directory 保持默认。
-6. 部署完成后，将 `lib/site.ts` 中的 `url` 替换为正式域名。
+6. 部署完成后，确认 `lib/site.ts` 中的 `url` 为正式域名 `https://www.yichuang.live`。
+
+## 百度主动提交
+
+百度普通收录提交命令：
+
+```bash
+npm run submit:baidu
+```
+
+执行前需要配置：
+
+```text
+BAIDU_SITE=https://www.yichuang.live
+BAIDU_TOKEN=你的百度普通收录 token
+```
+
+Token 获取位置：百度搜索资源平台 `https://ziyuan.baidu.com`，添加并验证网站后，在“普通收录”里复制接口 token。

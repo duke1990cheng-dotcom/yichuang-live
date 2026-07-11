@@ -6,11 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "submit:baidu": "node scripts/submit-baidu.js"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
     "@tailwindcss/typography": "^0.5.15",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "gray-matter": "^4.0.3",
     "next": "^15.0.3",
     "next-mdx-remote": "^6.0.0",

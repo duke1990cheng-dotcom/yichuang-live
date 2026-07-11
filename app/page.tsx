@@ -109,7 +109,7 @@ export default function HomePage() {
               </div>
               <div className="mt-6 text-center">
                 <p className="text-2xl font-medium tracking-wide text-ink">一窗窗膜体验中心</p>
-                <p className="mt-3 text-base leading-7 text-ink/62">天津市红桥区红旗路一号红星美凯龙一楼</p>
+                <p className="mt-3 text-base leading-7 text-ink/62">{site.address}</p>
                 <div className="mt-5 flex justify-center gap-2">
                   {tags.map((tag) => (
                     <span key={tag} className="rounded-full border border-line bg-paper px-4 py-1.5 text-sm text-ink/70">
@@ -182,7 +182,7 @@ export default function HomePage() {
               />
             </div>
             <p className="text-lg leading-9 text-ink/70">
-              位于天津市红桥区红旗路一号红星美凯龙一楼，提供真实窗膜体验、产品对比、方案咨询与施工预约。家里有西晒、落地窗太热、阳光房闷热或白天隐私不够，都可以先到店看样膜，也可以预约上门测量。
+              位于{site.address}，提供真实窗膜体验、产品对比、方案咨询与施工预约。家里有西晒、落地窗太热、阳光房闷热或白天隐私不够，都可以先到店看样膜，也可以预约上门测量。
             </p>
           </div>
         </div>

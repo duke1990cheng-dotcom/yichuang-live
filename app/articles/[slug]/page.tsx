@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const article = getArticleBySlug(slug);
     return {
       title: {
-        absolute: `${article.title}｜住宅窗膜知识中心｜一窗生活科技`
+        absolute: `${article.title}｜住宅窗膜百科｜一窗生活科技`
       },
       description: article.description,
       keywords: article.keywords,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         canonical: `/articles/${article.slug}`
       },
       openGraph: {
-        title: `${article.title}｜住宅窗膜知识中心`,
+        title: `${article.title}｜住宅窗膜百科`,
         description: article.description,
         type: "article",
         url: `${site.url}/articles/${article.slug}`

@@ -58,7 +58,7 @@ Settings → Domains
 添加正式域名，例如：
 
 ```text
-www.yichuanglife.com
+www.yichuang.live
 ```
 
 域名解析按 Vercel 提示设置即可。
@@ -94,3 +94,48 @@ www.yichuanglife.com
 微信：18500353137
 地址：天津市红桥区红旗路一号红星美凯龙一楼一窗窗膜体验中心
 ```
+
+## 百度主动提交
+
+项目已提供百度普通收录提交脚本：
+
+```bash
+npm run submit:baidu
+```
+
+脚本会读取网站 `/sitemap.xml` 里的链接，并提交到百度搜索资源平台。
+
+需要先准备两个环境变量：
+
+```text
+BAIDU_SITE=https://www.yichuang.live
+BAIDU_TOKEN=你的百度普通收录 token
+```
+
+获取 Token：
+
+1. 打开百度搜索资源平台：https://ziyuan.baidu.com
+2. 添加并验证网站 `www.yichuang.live`
+3. 进入“资源提交”或“普通收录”
+4. 复制接口调用地址里的 `token`
+
+在 Vercel 配置：
+
+```text
+Project Settings → Environment Variables
+```
+
+添加：
+
+```text
+BAIDU_SITE
+BAIDU_TOKEN
+```
+
+本地手动执行示例：
+
+```bash
+BAIDU_SITE=https://www.yichuang.live BAIDU_TOKEN=你的token npm run submit:baidu
+```
+
+Token 不要写进代码或提交到 GitHub。

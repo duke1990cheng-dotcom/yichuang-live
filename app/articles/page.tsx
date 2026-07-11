@@ -6,7 +6,7 @@ import { getAllArticles, getArticlesByCategory } from "@/lib/articles";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "住宅窗膜知识中心",
+  title: "住宅窗膜百科",
   description: "一窗住宅窗膜知识库，持续更新天津窗膜、天津玻璃膜、天津住宅窗膜、天津隔热膜、天津隐私膜、天津建筑膜和家庭贴膜常见问题。",
   path: "/articles"
 });

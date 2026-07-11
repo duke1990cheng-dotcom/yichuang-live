@@ -4,7 +4,7 @@ export const site = {
   brand: "一窗",
   slogan: "专业窗膜服务 · 提升居住品质",
   city: "天津",
-  url: "https://www.yichuanglife.com",
+  url: "https://www.yichuang.live",
   phone: "18500353137",
   wechat: "18500353137",
   address: "天津市红桥区红旗路一号红星美凯龙一楼一窗窗膜体验中心",
