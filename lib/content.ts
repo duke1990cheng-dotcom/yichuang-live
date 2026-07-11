@@ -63,7 +63,7 @@ function readContentFile(collection: ContentCollection, directory: string, file:
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const tags = normalizeArray(data.tags ?? data.keywords);
-  const publishDate = data.publishDate ?? data.date ?? "";
+  const publishDate = normalizeDate(data.publishDate ?? data.date);
   const enhancedContent = enhanceMarkdown(content);
   const publicSlug = normalizePublicSlug(data.slug, data.title, fileSlug);
 
@@ -241,6 +241,18 @@ function normalizeArray(value: unknown): string[] {
   }
 
   return [];
+}
+
+function normalizeDate(value: unknown) {
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  return "";
 }
 
 function normalizeCover(value: unknown, collection: ContentCollection) {
