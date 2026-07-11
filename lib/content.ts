@@ -38,30 +38,39 @@ export function getContentSlugs(collection: ContentCollection) {
   return fs
     .readdirSync(directory)
     .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx?$/, ""));
+    .map((file) => getContentByFile(collection, file).slug);
 }
 
 export function getContentBySlug(collection: ContentCollection, slug: string): ContentItem {
-  const realSlug = slug.replace(/\.mdx?$/, "");
   const directory = path.join(contentRoot, collection);
-  const mdPath = path.join(directory, `${realSlug}.md`);
-  const mdxPath = path.join(directory, `${realSlug}.mdx`);
-  const fullPath = fs.existsSync(mdPath) ? mdPath : mdxPath;
+  const matchedFile = findContentFile(directory, slug);
 
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`Content not found: ${collection}/${realSlug}`);
+  if (!matchedFile) {
+    throw new Error(`Content not found: ${collection}/${slug}`);
   }
 
+  return readContentFile(collection, directory, matchedFile);
+}
+
+function getContentByFile(collection: ContentCollection, file: string): ContentItem {
+  const directory = path.join(contentRoot, collection);
+  return readContentFile(collection, directory, file);
+}
+
+function readContentFile(collection: ContentCollection, directory: string, file: string): ContentItem {
+  const fullPath = path.join(directory, file);
+  const fileSlug = file.replace(/\.mdx?$/, "");
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const tags = normalizeArray(data.tags ?? data.keywords);
   const publishDate = data.publishDate ?? data.date ?? "";
   const enhancedContent = enhanceMarkdown(content);
+  const publicSlug = normalizePublicSlug(data.slug, data.title, fileSlug);
 
   return {
-    slug: realSlug,
+    slug: publicSlug,
     collection,
-    title: data.title ?? realSlug,
+    title: data.title ?? fileSlug,
     description: data.description ?? "",
     category: data.category ?? defaultCategory(collection),
     tags,
@@ -74,9 +83,92 @@ export function getContentBySlug(collection: ContentCollection, slug: string): C
   };
 }
 
+function findContentFile(directory: string, slug: string) {
+  if (!fs.existsSync(directory)) {
+    return null;
+  }
+
+  const files = fs
+    .readdirSync(directory)
+    .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"));
+  const candidates = getSlugCandidates(slug);
+
+  for (const file of files) {
+    const fileSlug = stripExtension(file);
+
+    if (candidates.has(fileSlug)) {
+      return file;
+    }
+  }
+
+  for (const file of files) {
+    const fullPath = path.join(directory, file);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+    const publicSlug = normalizePublicSlug(data.slug, data.title, stripExtension(file));
+
+    if (candidates.has(publicSlug)) {
+      return file;
+    }
+  }
+
+  return null;
+}
+
+function normalizePublicSlug(frontMatterSlug: unknown, title: unknown, fileSlug: string) {
+  if (typeof frontMatterSlug === "string" && frontMatterSlug.trim()) {
+    return stripExtension(frontMatterSlug.trim());
+  }
+
+  const decodedFileSlug = safeDecode(fileSlug);
+
+  if (decodedFileSlug && decodedFileSlug !== fileSlug) {
+    return decodedFileSlug;
+  }
+
+  if (fileSlug && fileSlug !== "index") {
+    return fileSlug;
+  }
+
+  return typeof title === "string" && title.trim() ? slugify(title) : fileSlug;
+}
+
+function getSlugCandidates(slug: string) {
+  const baseSlug = stripExtension(slug);
+  const decodedSlug = safeDecode(baseSlug);
+  const candidates = new Set<string>([baseSlug, encodeURIComponent(baseSlug)]);
+
+  if (decodedSlug) {
+    candidates.add(decodedSlug);
+    candidates.add(encodeURIComponent(decodedSlug));
+  }
+
+  return candidates;
+}
+
+function stripExtension(slug: string) {
+  return slug.replace(/\.mdx?$/, "");
+}
+
+function safeDecode(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export function getAllContent(collection: ContentCollection) {
-  return getContentSlugs(collection)
-    .map((slug) => getContentBySlug(collection, slug))
+  const directory = path.join(contentRoot, collection);
+
+  if (!fs.existsSync(directory)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(directory)
+    .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
+    .map((file) => readContentFile(collection, directory, file))
     .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1));
 }
 
