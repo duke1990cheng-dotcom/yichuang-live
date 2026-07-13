@@ -63,7 +63,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
             return (
               <Link
                 key={category.title}
-                href={`/articles?category=${encodeURIComponent(category.title)}`}
+                href={`/articles?category=${encodeURIComponent(category.title)}#articles`}
                 className="focus-ring rounded-lg border border-line/70 bg-white p-6 transition hover:-translate-y-0.5 hover:border-blue hover:shadow-soft"
               >
                 <p className="text-sm font-medium tracking-[0.18em] text-blue">CATEGORY</p>
@@ -76,7 +76,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
         </div>
 
         {activeCategory ? (
-          <div className="mt-14">
+          <div id="articles" className="mt-14 scroll-mt-28">
             <div className="flex flex-col justify-between gap-4 border-t border-line/70 pt-10 md:flex-row md:items-end">
               <div>
                 <p className="text-sm font-medium tracking-[0.18em] text-blue">ARTICLES</p>
