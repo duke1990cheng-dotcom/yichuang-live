@@ -38,7 +38,7 @@ async function main() {
     return;
   }
 
-  const endpoint = `https://data.zz.baidu.com/urls?site=${encodeURIComponent(siteUrl.host)}&token=${encodeURIComponent(token)}`;
+  const endpoint = `http://data.zz.baidu.com/urls?site=${encodeURIComponent(siteUrl.host)}&token=${encodeURIComponent(token)}`;
   const response = await fetch(endpoint, {
     body: urls.join("\n"),
     headers: {
